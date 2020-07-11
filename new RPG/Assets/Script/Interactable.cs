@@ -9,10 +9,6 @@ public class Interactable : MonoBehaviour
     public bool hasInteracted = false;
     PlayerController player;
 
-    private void Start()
-    {
-        
-    }
     public void OnFoucused(PlayerController playerController)
     {
         hasInteracted = false;
@@ -54,10 +50,8 @@ public class Interactable : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log(name + " on destroy");
         if (player != null && player.focus != null)
         {
-            Debug.Log(name + " was destroyed because it was picked up");
             player.RemoveFocus();
         }
     }

@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    public Vector3 offset;
+    public Vector3 offset = new Vector3(0, 0.8f, 1f);
     public float pitch = 2f;
     public float maxZoom = 15f;
     public float minZoom = 5f;
@@ -15,24 +16,34 @@ public class CameraController : MonoBehaviour
     private float currentZoom = 10f;
     bool isMouseButton3Down = false;
 
+    private void Start()
+    {
+        transform.position = transform.position = target.position + offset * currentZoom;
+        transform.LookAt(target.position + Vector3.up * pitch);
+        transform.RotateAround(target.position, Vector3.up, target.eulerAngles.y);
+
+    }
+
     private void Update()
     {
-        float mouseScrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
-        if (mouseScrollWheel != 0)
+        if(!EventSystem.current.IsPointerOverGameObject())
         {
-            currentZoom = Mathf.Lerp(currentZoom, currentZoom - mouseScrollWheel * zoomSpeed, Time.deltaTime * 5f);
-            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-        }
-            
-        if (Input.GetMouseButton(2))
-        {
-            isMouseButton3Down = true;
-        }
-        else
-        {
-            isMouseButton3Down = false;
-        }
+            float mouseScrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
+            if (mouseScrollWheel != 0)
+            {
+                currentZoom = Mathf.Lerp(currentZoom, currentZoom - mouseScrollWheel * zoomSpeed, Time.deltaTime * 5f);
+                currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+            }
 
+            if (Input.GetMouseButton(2))
+            {
+                isMouseButton3Down = true;
+            }
+            else
+            {
+                isMouseButton3Down = false;
+            }
+        }
     }
 
     void LateUpdate()

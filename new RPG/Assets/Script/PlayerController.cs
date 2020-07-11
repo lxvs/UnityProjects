@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
@@ -19,41 +20,40 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0)) 
+        if(!EventSystem.current.IsPointerOverGameObject())
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit, 100f, movementMask))
+            if (Input.GetMouseButton(0))
             {
-                if (focus != null) RemoveFocus();
-                motor.MoveToPoint(raycastHit.point);
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit raycastHit;
+
+                if (Physics.Raycast(ray, out raycastHit, 100f, movementMask))
+                {
+                    if (focus != null) RemoveFocus();
+                    motor.MoveToPoint(raycastHit.point);
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit raycastHit;
+
+                if (Physics.Raycast(ray, out raycastHit, 100f))
+                {
+                    Interactable interactable = raycastHit.collider.GetComponent<Interactable>();
+                    if (interactable != null)
+                    {
+                        SetFocus(interactable);
+                    }
+                    else
+                    {
+                        RemoveFocus();
+                    }
+                }
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit, 100f))
-            {
-                Interactable interactable = raycastHit.collider.GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    SetFocus(interactable);
-                }
-                else
-                {
-                    RemoveFocus();
-                }
-            }
-        }
-
-        if (focus != null && !focus.isFocused)
-        {
-            RemoveFocus();
-        }
 
     }
 
@@ -67,6 +67,10 @@ public class PlayerController : MonoBehaviour
             focus = newFocus;
             focus.OnFoucused(this);
             motor.FollowTarget(newFocus);
+        }
+        else if (newFocus.hasInteracted)
+        {
+            newFocus.hasInteracted = false;
         }
     }
 
