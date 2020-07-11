@@ -1,5 +1,6 @@
 
-new RPG/.vs/*
-new RPG/Temp/*
-new RPG/Logs/*
-new RPG/obj/*
+new RPG/.vs/
+new RPG/Temp/
+new RPG/Logs/
+new RPG/obj/
+new RPG/Library/
