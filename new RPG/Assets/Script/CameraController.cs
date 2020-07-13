@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
             if (deltaY != 0)
             {
 
-                if ((transform.eulerAngles.x - 360f) * Mathf.Sign(-deltaY) < (deltaY > 0 ? rotationUpMax : rotationDownMax)) // the sign rotation obeys the left hand rule 
+                if (GetNormalizedEulerAngle(transform.eulerAngles.x) * Mathf.Sign(-deltaY) < (deltaY > 0 ? rotationUpMax : rotationDownMax)) // the sign rotation obeys the left hand rule 
                     transform.RotateAround(target.position, horizon, deltaY * rotateSpeedVertical);
             }
 
@@ -89,16 +89,16 @@ public class CameraController : MonoBehaviour
             deltaY = Input.GetAxis("VerticalView");
             if (deltaY != 0)
             {
-                if ((transform.eulerAngles.x - 360f) * Mathf.Sign(-deltaY) < (deltaY > 0 ? rotationUpMax : rotationDownMax))
+                if (GetNormalizedEulerAngle(transform.eulerAngles.x) * Mathf.Sign(-deltaY) < (deltaY > 0 ? rotationUpMax : rotationDownMax))
                     transform.RotateAround(target.position + Vector3.up * pitch, horizon, deltaY * rotateSpeedVertical);
             }
 
         }
         transform.LookAt(target.position + Vector3.up * pitch);
-        Vector3 oldLEA = transform.eulerAngles;
-        transform.eulerAngles = new Vector3(Mathf.Clamp(transform.eulerAngles.x - 360f, -rotationUpMax, rotationDownMax), transform.eulerAngles.y, transform.eulerAngles.z);
-        if (transform.localEulerAngles != oldLEA)
-            Debug.LogWarning("old LEA = " + oldLEA + ".  new localEulerAngles = " + transform.localEulerAngles);
+        //Vector3 oldLEA = transform.eulerAngles;
+        transform.eulerAngles = new Vector3(Mathf.Clamp(GetNormalizedEulerAngle(transform.eulerAngles.x), -rotationUpMax, rotationDownMax), transform.eulerAngles.y, transform.eulerAngles.z);
+        //if (transform.localEulerAngles != oldLEA)
+        //    Debug.LogWarning("old LEA = " + oldLEA + ".  new localEulerAngles = " + transform.localEulerAngles + ".   x = " + transform.eulerAngles.x + ".  normalized x = " + GetNormalizedEulerAngle(transform.eulerAngles.x));
         // (transform.rotation.eulerAngles.x > 180f ? transform.rotation.eulerAngles.x - 360f : transform.rotation.eulerAngles.x)
 
         //if (deltaY != 0)
@@ -112,5 +112,18 @@ public class CameraController : MonoBehaviour
 
         //Debug.Log("alpha, sinAlpha = " + transform.rotation.eulerAngles.x + ", " + Mathf.Sin(alpha) + ".  Actual offset = " + (transform.position - target.position - Vector3.up * pitch) /currentZoom);
         transform.position = Vector3.Lerp(transform.position, target.position + Vector3.up * pitch + offset * currentZoom, Time.deltaTime * 5f);
+    }
+
+    float GetNormalizedEulerAngle(float angleInDegree)
+    {
+        while (angleInDegree > 180f)
+        {
+            angleInDegree -= 360f;
+        }
+        while (angleInDegree <= -180f)
+        {
+            angleInDegree += 360f;
+        }
+        return angleInDegree;
     }
 }

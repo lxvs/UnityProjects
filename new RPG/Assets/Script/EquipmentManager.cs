@@ -24,6 +24,9 @@ public class EquipmentManager : MonoBehaviour
     public delegate void OnEquipmentChanged(Equipment newEquipment, Equipment oldEquipment);
     public OnEquipmentChanged onEquipmentChanged;
 
+    public SkinnedMeshRenderer[] defualtOutfitsPrefabs;
+    SkinnedMeshRenderer[] defaultOutfitsInstances;
+
     public Material[] materials;
 
     private void Start()
@@ -31,19 +34,30 @@ public class EquipmentManager : MonoBehaviour
         int equipmentSlotNum = System.Enum.GetNames(typeof(EquipmentType)).Length;
         currentEquipment = new Equipment[equipmentSlotNum];
         currentMeshes = new SkinnedMeshRenderer[equipmentSlotNum];
+
+        defaultOutfitsInstances = new SkinnedMeshRenderer[defualtOutfitsPrefabs.Length];
+        for (int i = 0; i < defualtOutfitsPrefabs .Length; i++)
+        {
+            defaultOutfitsInstances[i] = Instantiate(defualtOutfitsPrefabs[i]);
+            defaultOutfitsInstances[i].transform.parent = targetMesh.transform;
+            defaultOutfitsInstances[i].bones = targetMesh.bones;
+            defaultOutfitsInstances[i].rootBone = targetMesh.rootBone;
+        }
+
+
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Debug")) 
-        {
-            Debug.Log("<color=green>" 
-                + "blendshapeWeight = "
-                + targetMesh.GetBlendShapeWeight(0) + ", "
-                + targetMesh.GetBlendShapeWeight(1) + ", "
-                + targetMesh.GetBlendShapeWeight(2) + "</color>");
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetButtonDown("Debug")) 
+    //    {
+    //        Debug.Log("<color=green>" 
+    //            + "blendshapeWeight = "
+    //            + targetMesh.GetBlendShapeWeight(0) + ", "
+    //            + targetMesh.GetBlendShapeWeight(1) + ", "
+    //            + targetMesh.GetBlendShapeWeight(2) + "</color>");
+    //    }
+    //}
     public void Equip(Equipment newEquipment)
     {
         int equipmentSlot = (int)newEquipment.equipmentType;
@@ -51,34 +65,37 @@ public class EquipmentManager : MonoBehaviour
         if (oldEquipment != null)
         {
             Destroy(currentMeshes[equipmentSlot].gameObject);
-            //targetMesh.SetBlendShapeWeight(0, 0);
-            //targetMesh.SetBlendShapeWeight(1, 0);
-            //targetMesh.SetBlendShapeWeight(2, 0);
         }
         currentEquipment[equipmentSlot] = newEquipment;
         if (newEquipment.mesh != null)
         {
+            if (defaultOutfitsInstances[equipmentSlot] != null)
+            {
+                Destroy(defaultOutfitsInstances[equipmentSlot].gameObject);
+            }
             SkinnedMeshRenderer newMesh = Instantiate(newEquipment.mesh);
             newMesh.transform.parent = targetMesh.transform;
 
             newMesh.bones = targetMesh.bones;
             newMesh.rootBone = targetMesh.rootBone;
-            if(newEquipment.equipmentType == EquipmentType.Chest || newEquipment.equipmentType == EquipmentType.Head || newEquipment.equipmentType == EquipmentType.Legs)
+
+            if((int)newEquipment.equipmentType <= 2)
             {
-                if (newEquipment.equipmentType == EquipmentType.Chest)
-                {
-                    targetMesh.SetBlendShapeWeight(1, 100f);
-                    targetMesh.SetBlendShapeWeight(2, 100f);
-                }
-                if (newEquipment.equipmentType == EquipmentType.Legs)
-                {
-                    targetMesh.SetBlendShapeWeight(0, 100f);
-                }
-                Debug.Log("<color=blue>"
-                    + "blendshapeWeight = "
-                    + targetMesh.GetBlendShapeWeight(0) + ", "
-                    + targetMesh.GetBlendShapeWeight(1) + ", "
-                    + targetMesh.GetBlendShapeWeight(2) + "</color>");
+                //if (newEquipment.equipmentType == EquipmentType.Chest)
+                //{
+                //    targetMesh.SetBlendShapeWeight(1, 100f);
+                //    targetMesh.SetBlendShapeWeight(2, 100f);
+                //}
+                //if (newEquipment.equipmentType == EquipmentType.Legs)
+                //{
+                //    targetMesh.SetBlendShapeWeight(0, 100f);
+                //}
+
+                ////Debug.Log("<color=blue>"
+                ////    + "blendshapeWeight = "
+                ////    + targetMesh.GetBlendShapeWeight(0) + ", "
+                ////    + targetMesh.GetBlendShapeWeight(1) + ", "
+                ////    + targetMesh.GetBlendShapeWeight(2) + "</color>");
 
                 EquipmentArmor newEquipmentArmor = (EquipmentArmor)newEquipment;
                 int matLength = newMesh.materials.Length;

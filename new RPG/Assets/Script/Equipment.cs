@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public enum EquipmentType { Head, Chest, Waist, Legs, Feet, Hand, Weapon, Shield, Necklace, Ring, Ring2 }
+public enum EquipmentType { Head, Chest, Legs, Shoes, Waist, Hand, Weapon, Shield, Necklace, Ring, Ring2 } 
 
 [CreateAssetMenu(fileName = "New equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item

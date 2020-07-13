@@ -19,7 +19,7 @@ MonoBehaviour:
   levelLimit: 0
   pickable: 1
   tangible: 1
-  equipmentType: 3
+  equipmentType: 2
   mesh: {fileID: 1998757345405990235, guid: ac2a7c059116b264ead6a60f79d9b9f9, type: 3}
   phyAtkAdd: 0
   phyDefAdd: 150

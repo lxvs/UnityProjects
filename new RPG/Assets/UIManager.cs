@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
             if (gameMenuUI.activeSelf) gameMenuUI.SetActive(false);
             inventoryUI.SetActive(!inventoryUI.activeSelf);
         }
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))      
         {
             if(inventoryUI.activeSelf || false)
             {
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
             }
 
         }
-        if (Input.GetButtonDown("Back")) 
+        if (Input.GetButtonDown("Back"))        // remember CANCEL and BACK can't be the same key
         {
             if (gameMenuUI.activeSelf) gameMenuUI.SetActive(false);
             if (inventoryUI.activeSelf) inventoryUI.SetActive(false);

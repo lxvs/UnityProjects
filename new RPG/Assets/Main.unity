@@ -2762,10 +2762,10 @@ RectTransform:
   m_Father: {fileID: 707042073}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 160}
-  m_SizeDelta: {x: -602.59314, y: -399.72424}
+  m_SizeDelta: {x: -602.59314, y: 50.275757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539973272
 MonoBehaviour:
@@ -8832,6 +8832,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMesh: {fileID: 1630794972836742463}
+  defualtOutfitsPrefabs:
+  - {fileID: 5025764399587527045, guid: c0b2e78a37ffaf047a8185cb36d944e0, type: 3}
+  - {fileID: 878196407766079246, guid: b57789fc52a03504caad805420f932fd, type: 3}
+  - {fileID: 351535017685753784, guid: 22751fb9c07a56a4994ced336cb6bf71, type: 3}
+  - {fileID: 1430538244089113372, guid: adc7354741ce77f49a33074595a541f3, type: 3}
   materials:
   - {fileID: 2100000, guid: 54211af05085a714cb4ee9fd13cbaef9, type: 2}
   - {fileID: 2100000, guid: 0795115a736e4f647b1c8935b987d710, type: 2}
@@ -10370,9 +10375,9 @@ SkinnedMeshRenderer:
   - {fileID: 1497325153801435636}
   - {fileID: 6369183208259592925}
   m_BlendShapeWeights:
-  - 0
-  - 0
-  - 0
+  - 100
+  - 100
+  - 100
   m_RootBone: {fileID: 3742407835395558603}
   m_AABB:
     m_Center: {x: -0.000001748791, y: -0.00022429042, z: 0.00029567338}
