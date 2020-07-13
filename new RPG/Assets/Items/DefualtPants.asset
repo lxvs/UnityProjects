@@ -18,8 +18,9 @@ MonoBehaviour:
   ItemQuality: 0
   levelLimit: 0
   pickable: 1
-  equipmentType: 0
-  mesh: {fileID: 0}
+  tangible: 1
+  equipmentType: 3
+  mesh: {fileID: 351535017685753784, guid: 22751fb9c07a56a4994ced336cb6bf71, type: 3}
   phyAtkAdd: 0
   phyDefAdd: 0
   phyAtkMulSelf: 1

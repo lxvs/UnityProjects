@@ -33,6 +33,17 @@ public class EquipmentManager : MonoBehaviour
         currentMeshes = new SkinnedMeshRenderer[equipmentSlotNum];
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Debug")) 
+        {
+            Debug.Log("<color=green>" 
+                + "blendshapeWeight = "
+                + targetMesh.GetBlendShapeWeight(0) + ", "
+                + targetMesh.GetBlendShapeWeight(1) + ", "
+                + targetMesh.GetBlendShapeWeight(2) + "</color>");
+        }
+    }
     public void Equip(Equipment newEquipment)
     {
         int equipmentSlot = (int)newEquipment.equipmentType;
@@ -40,6 +51,9 @@ public class EquipmentManager : MonoBehaviour
         if (oldEquipment != null)
         {
             Destroy(currentMeshes[equipmentSlot].gameObject);
+            //targetMesh.SetBlendShapeWeight(0, 0);
+            //targetMesh.SetBlendShapeWeight(1, 0);
+            //targetMesh.SetBlendShapeWeight(2, 0);
         }
         currentEquipment[equipmentSlot] = newEquipment;
         if (newEquipment.mesh != null)
@@ -51,25 +65,41 @@ public class EquipmentManager : MonoBehaviour
             newMesh.rootBone = targetMesh.rootBone;
             if(newEquipment.equipmentType == EquipmentType.Chest || newEquipment.equipmentType == EquipmentType.Head || newEquipment.equipmentType == EquipmentType.Legs)
             {
+                if (newEquipment.equipmentType == EquipmentType.Chest)
+                {
+                    targetMesh.SetBlendShapeWeight(1, 100f);
+                    targetMesh.SetBlendShapeWeight(2, 100f);
+                }
+                if (newEquipment.equipmentType == EquipmentType.Legs)
+                {
+                    targetMesh.SetBlendShapeWeight(0, 100f);
+                }
+                Debug.Log("<color=blue>"
+                    + "blendshapeWeight = "
+                    + targetMesh.GetBlendShapeWeight(0) + ", "
+                    + targetMesh.GetBlendShapeWeight(1) + ", "
+                    + targetMesh.GetBlendShapeWeight(2) + "</color>");
+
                 EquipmentArmor newEquipmentArmor = (EquipmentArmor)newEquipment;
                 int matLength = newMesh.materials.Length;
                 Material[] newMaterials = new Material[matLength];
                 for (int i = 0; i < matLength; i++)
-                { 
+                {
                     newMaterials[i] = materials[(int)newEquipmentArmor.armorType];
                 }
-                Debug.Log("armortype = " + newEquipmentArmor.armorType);
                 newMesh.materials = newMaterials;
-                
+
 
             }
             currentMeshes[equipmentSlot] = newMesh;
+
         }
         
 
         Inventory.instance.Remove(newEquipment);
         Inventory.instance.Add(oldEquipment);
-
+        
         if (onEquipmentChanged != null) onEquipmentChanged.Invoke(newEquipment, oldEquipment);
+
     }
 }

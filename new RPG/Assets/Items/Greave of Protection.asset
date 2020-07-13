@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
-  m_Name: DefualtShoes
+  m_Name: Greave of Protection
   m_EditorClassIdentifier: 
-  name: New item
+  name: Greave of Protection
   discription: 
-  icon: {fileID: 0}
-  ItemQuality: 0
+  icon: {fileID: 21300000, guid: d14bd347672c25f46a71c6306d6652cf, type: 3}
+  ItemQuality: 1
   levelLimit: 0
   pickable: 1
   tangible: 1
-  equipmentType: 4
-  mesh: {fileID: 1430538244089113372, guid: adc7354741ce77f49a33074595a541f3, type: 3}
+  equipmentType: 3
+  mesh: {fileID: 1998757345405990235, guid: ac2a7c059116b264ead6a60f79d9b9f9, type: 3}
   phyAtkAdd: 0
-  phyDefAdd: 0
+  phyDefAdd: 150
   phyAtkMulSelf: 1
-  phyDefMulSelf: 1
+  phyDefMulSelf: 1.1
   phyAtkMul: 1
   phyDefMul: 1
   movementSpeedAdd: 0
   movementSpeedMul: 1
   attackSpeedAdd: 0
   attackSpeedMul: 1
-  armorType: 0
+  armorType: 3
