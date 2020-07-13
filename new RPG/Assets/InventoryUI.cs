@@ -3,31 +3,18 @@
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
-    public GameObject inventoryUI;
 
     Inventory inventory;
     InventorySlot[] slots;
-    void Start()
+
+    private void Start()
     {
         inventory = Inventory.instance;
-        inventory.onItemsChangedCallBack += UpdateUI;
-
+        inventory.onItemsChangedCallBack += UpdateInventoryUI;
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-
-        inventoryUI.SetActive(!inventoryUI.activeSelf);
-        //UpdateUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown("Inventory"))
-        {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
-    }
-
-    void UpdateUI()
+    public void UpdateInventoryUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -37,9 +24,10 @@ public class InventoryUI : MonoBehaviour
             }
             else
             {
-                if (slots[i].item != null) 
+                if (slots[i].item != null)
                     slots[i].ClearSlot();
             }
         }
     }
+
 }

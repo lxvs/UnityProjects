@@ -108,16 +108,22 @@
     <Compile Include="Assets\Environment\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Environment\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Environment\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\InventorySlot.cs" />
+    <Compile Include="Assets\GameSettingsManager.cs" />
     <Compile Include="Assets\InventoryUI.cs" />
     <Compile Include="Assets\Script\CameraController.cs" />
     <Compile Include="Assets\Script\CharactorAnimator.cs" />
+    <Compile Include="Assets\Script\Equipment.cs" />
+    <Compile Include="Assets\Script\EquipmentArmor.cs" />
+    <Compile Include="Assets\Script\EquipmentManager.cs" />
+    <Compile Include="Assets\Script\EquipmentWeapon.cs" />
     <Compile Include="Assets\Script\Interactable.cs" />
     <Compile Include="Assets\Script\Inventory.cs" />
+    <Compile Include="Assets\Script\InventorySlot.cs" />
     <Compile Include="Assets\Script\Item.cs" />
     <Compile Include="Assets\Script\ItemPickup.cs" />
     <Compile Include="Assets\Script\PlayerController.cs" />
     <Compile Include="Assets\Script\PlayerMotor.cs" />
+    <Compile Include="Assets\UIManager.cs" />
     <None Include="Assets\Environment\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\Environment\PostProcessing\Resources\Shaders\GrainGen.shader" />
     <None Include="Assets\Environment\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
@@ -720,14 +726,14 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/lxvs/Documents/GitHub/UnityProjects/new RPG/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>C:/Users/lxvs/Documents/GitHub/UnityProjects/new RPG/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/lxvs/Documents/GitHub/UnityProjects/new RPG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/lxvs/Documents/GitHub/UnityProjects/new RPG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/lxvs/Documents/GitHub/UnityProjects/new RPG/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

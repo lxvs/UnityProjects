@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask movementMask;
     public PlayerMotor motor;
     public Interactable focus;
-
-
     
     void Start()
     {
@@ -17,7 +15,6 @@ public class PlayerController : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!EventSystem.current.IsPointerOverGameObject())
@@ -54,10 +51,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        Vector3 velocity = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1f);
+        if (velocity != Vector3.zero) motor.Move(velocity);
+        
     }
-
-
 
     public void SetFocus(Interactable newFocus)
     {

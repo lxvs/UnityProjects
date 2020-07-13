@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f2eb4bde348d54ea28be03e43022fc, type: 3}
-  m_Name: Medal scrap
+  m_Name: Metal scrap
   m_EditorClassIdentifier: 
-  name: Medal scrap
+  name: Metal scrap
   discription: Maybe useful some day.
-  icon: {fileID: 21300000, guid: cdc7bc339a2cda54eb8b6e3cac620e4b, type: 3}
-  maxStack: 1000
-  maxCarry: 32000
+  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  ItemQuality: 0
+  levelLimit: 0
   pickable: 1
-  amount: 0

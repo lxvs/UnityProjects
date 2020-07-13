@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
+  m_Name: DefualtShoes
+  m_EditorClassIdentifier: 
+  name: New item
+  discription: 
+  icon: {fileID: 0}
+  ItemQuality: 0
+  levelLimit: 0
+  pickable: 1
+  equipmentType: 0
+  mesh: {fileID: 0}
+  phyAtkAdd: 0
+  phyDefAdd: 0
+  phyAtkMulSelf: 1
+  phyDefMulSelf: 1
+  phyAtkMul: 1
+  phyDefMul: 1
+  movementSpeedAdd: 0
+  movementSpeedMul: 1
+  attackSpeedAdd: 0
+  attackSpeedMul: 1
+  armorType: 0

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Plastic pad
   discription: A plastic pad you picked up some day, it's totally useless.
-  icon: {fileID: 21300000, guid: c2192d7fcbfd7f74f8a94f57ec03d78e, type: 3}
-  maxStack: 1000
-  maxCarry: 32000
+  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  ItemQuality: 0
+  levelLimit: 0
   pickable: 1
-  amount: 0
