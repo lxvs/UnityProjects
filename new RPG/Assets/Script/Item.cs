@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public enum ItemQuality { Common, Uncommon, Rare, Epic, Lagendary, Unique, Special }
+public enum ItemQuality { Common, Uncommon, Rare, Epic, Suits, Unique, Special }
+
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
@@ -12,18 +13,17 @@ public class Item : ScriptableObject
     /// </summary>
     public ItemQuality ItemQuality = ItemQuality.Common;
     public short levelLimit = 0;
-    //public short maxStack = 1000;
-    //public short maxCarry = 32000;
     public bool pickable = true;
     /// <summary>
     /// tangible items can be put into inventory.
     /// </summary>
-    public bool tangible = true;        
-    //public short amount = 0;
+    public bool tangible = true;
+
+    public Color[] itemQualityColor = { Color.white, Color.blue, Color.cyan, Color.yellow, Color.green, Color.magenta, Color.red};
 
     public virtual void Use()
     {
-        Debug.Log("Using <color=blue>" + name+"</color>.");
+        Debug.Log("Using <color=" + itemQualityColor[(int)ItemQuality] + ">" + name + "</color>.");
     }
 
 }

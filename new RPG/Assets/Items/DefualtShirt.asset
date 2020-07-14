@@ -20,6 +20,7 @@ MonoBehaviour:
   pickable: 1
   tangible: 1
   equipmentType: 1
+  equipmentBlendShapes: 0100000002000000
   mesh: {fileID: 878196407766079246, guid: b57789fc52a03504caad805420f932fd, type: 3}
   phyAtkAdd: 0
   phyDefAdd: 0

@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="newItem"></param>
     /// <returns></returns>
-    public short Add(Item newItem)  
+    public short Add(Item newItem, bool itemChangedCall = true)
     {
         if (newItem == null) return -1; 
         if (!newItem.pickable) 
@@ -46,7 +46,7 @@ public class Inventory : MonoBehaviour
 
         items.Add(newItem);
 
-        if (onItemsChangedCallBack != null) onItemsChangedCallBack.Invoke();
+        if (itemChangedCall && onItemsChangedCallBack != null) onItemsChangedCallBack.Invoke();
         return 0;
 
     }
@@ -56,12 +56,16 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="itemToRemove"></param>
     /// <returns></returns>
-    public short Remove(Item itemToRemove)
+    public short Remove(Item itemToRemove, bool itemChangedCall = true)
     {
         if (itemToRemove == null) return -1;
-        items.Remove(itemToRemove);
+        Debug.LogWarning("items.remove = " + items.Remove(itemToRemove));
 
-        if (onItemsChangedCallBack != null) onItemsChangedCallBack.Invoke();
+        if (itemChangedCall && onItemsChangedCallBack != null)
+        {
+            Debug.Log("call back");
+            onItemsChangedCallBack.Invoke();
+        }
         return 0;
     }
 }

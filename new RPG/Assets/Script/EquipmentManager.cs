@@ -18,11 +18,12 @@ public class EquipmentManager : MonoBehaviour
 
     #endregion
 
+    Inventory inventory;
     Equipment[] currentEquipment;
     SkinnedMeshRenderer[] currentMeshes;
     public SkinnedMeshRenderer targetMesh;
     public delegate void OnEquipmentChanged(Equipment newEquipment, Equipment oldEquipment);
-    public OnEquipmentChanged onEquipmentChanged;
+    public OnEquipmentChanged onEquipmentChangedCallBack;
 
     public SkinnedMeshRenderer[] defualtOutfitsPrefabs;
     SkinnedMeshRenderer[] defaultOutfitsInstances;
@@ -31,12 +32,14 @@ public class EquipmentManager : MonoBehaviour
 
     private void Start()
     {
+        inventory = Inventory.instance;
+
         int equipmentSlotNum = System.Enum.GetNames(typeof(EquipmentType)).Length;
         currentEquipment = new Equipment[equipmentSlotNum];
         currentMeshes = new SkinnedMeshRenderer[equipmentSlotNum];
 
         defaultOutfitsInstances = new SkinnedMeshRenderer[defualtOutfitsPrefabs.Length];
-        for (int i = 0; i < defualtOutfitsPrefabs .Length; i++)
+        for (int i = 0; i < defualtOutfitsPrefabs.Length; i++)
         {
             defaultOutfitsInstances[i] = Instantiate(defualtOutfitsPrefabs[i]);
             defaultOutfitsInstances[i].transform.parent = targetMesh.transform;
@@ -47,22 +50,11 @@ public class EquipmentManager : MonoBehaviour
 
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetButtonDown("Debug")) 
-    //    {
-    //        Debug.Log("<color=green>" 
-    //            + "blendshapeWeight = "
-    //            + targetMesh.GetBlendShapeWeight(0) + ", "
-    //            + targetMesh.GetBlendShapeWeight(1) + ", "
-    //            + targetMesh.GetBlendShapeWeight(2) + "</color>");
-    //    }
-    //}
     public void Equip(Equipment newEquipment)
     {
         int equipmentSlot = (int)newEquipment.equipmentType;
         Equipment oldEquipment = currentEquipment[equipmentSlot];
-        if (oldEquipment != null)
+        if (oldEquipment != null && currentMeshes[equipmentSlot] != null)
         {
             Destroy(currentMeshes[equipmentSlot].gameObject);
         }
@@ -81,21 +73,10 @@ public class EquipmentManager : MonoBehaviour
 
             if((int)newEquipment.equipmentType <= 2)
             {
-                //if (newEquipment.equipmentType == EquipmentType.Chest)
-                //{
-                //    targetMesh.SetBlendShapeWeight(1, 100f);
-                //    targetMesh.SetBlendShapeWeight(2, 100f);
-                //}
-                //if (newEquipment.equipmentType == EquipmentType.Legs)
-                //{
-                //    targetMesh.SetBlendShapeWeight(0, 100f);
-                //}
-
-                ////Debug.Log("<color=blue>"
-                ////    + "blendshapeWeight = "
-                ////    + targetMesh.GetBlendShapeWeight(0) + ", "
-                ////    + targetMesh.GetBlendShapeWeight(1) + ", "
-                ////    + targetMesh.GetBlendShapeWeight(2) + "</color>");
+                foreach (EquipmentMeshRegions equipmentBlendShapes in newEquipment.equipmentMeshRegions)
+                {
+                    targetMesh.SetBlendShapeWeight((int)equipmentBlendShapes, 100);
+                }
 
                 EquipmentArmor newEquipmentArmor = (EquipmentArmor)newEquipment;
                 int matLength = newMesh.materials.Length;
@@ -113,10 +94,39 @@ public class EquipmentManager : MonoBehaviour
         }
         
 
-        Inventory.instance.Remove(newEquipment);
-        Inventory.instance.Add(oldEquipment);
-        
-        if (onEquipmentChanged != null) onEquipmentChanged.Invoke(newEquipment, oldEquipment);
+        inventory.Remove(newEquipment);
+        inventory.Add(oldEquipment);
 
+        if (onEquipmentChangedCallBack != null) onEquipmentChangedCallBack.Invoke(newEquipment, oldEquipment);
+
+
+    }
+
+    public void Unequip(Equipment equipment)
+    {
+        if (equipment != null)
+        {
+            if(inventory.items.Count >= inventory.inventorySpace)
+            {
+                Debug.LogWarning("Inventory is full!");
+                return;
+            }
+            int equipmentType = (int)equipment.equipmentType;
+
+            if (currentMeshes[equipmentType] != null)
+            {
+                Destroy(currentMeshes[equipmentType].gameObject);
+            }
+            if (equipmentType <= 3)
+            {
+                defaultOutfitsInstances[equipmentType] = Instantiate(defualtOutfitsPrefabs[equipmentType]);
+                defaultOutfitsInstances[equipmentType].transform.parent = targetMesh.transform;
+                defaultOutfitsInstances[equipmentType].bones = targetMesh.bones;
+                defaultOutfitsInstances[equipmentType].rootBone = targetMesh.rootBone;
+            }
+
+            if (onEquipmentChangedCallBack != null) onEquipmentChangedCallBack.Invoke(null, equipment);
+            Debug.LogWarning( inventory.Add(equipment));
+        }
     }
 }
