@@ -59,11 +59,9 @@ public class Inventory : MonoBehaviour
     public short Remove(Item itemToRemove, bool itemChangedCall = true)
     {
         if (itemToRemove == null) return -1;
-        Debug.LogWarning("items.remove = " + items.Remove(itemToRemove));
-
         if (itemChangedCall && onItemsChangedCallBack != null)
         {
-            Debug.Log("call back");
+            items.Remove(itemToRemove);
             onItemsChangedCallBack.Invoke();
         }
         return 0;

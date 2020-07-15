@@ -19,7 +19,7 @@ public class EquipmentManager : MonoBehaviour
     #endregion
 
     Inventory inventory;
-    Equipment[] currentEquipment;
+    public Equipment[] currentEquipment;
     SkinnedMeshRenderer[] currentMeshes;
     public SkinnedMeshRenderer targetMesh;
     public delegate void OnEquipmentChanged(Equipment newEquipment, Equipment oldEquipment);
@@ -34,17 +34,21 @@ public class EquipmentManager : MonoBehaviour
     {
         inventory = Inventory.instance;
 
-        int equipmentSlotNum = System.Enum.GetNames(typeof(EquipmentType)).Length;
+        int equipmentSlotNum = System.Enum.GetNames(typeof(EquipmentTypeSlot)).Length;
         currentEquipment = new Equipment[equipmentSlotNum];
         currentMeshes = new SkinnedMeshRenderer[equipmentSlotNum];
 
         defaultOutfitsInstances = new SkinnedMeshRenderer[defualtOutfitsPrefabs.Length];
         for (int i = 0; i < defualtOutfitsPrefabs.Length; i++)
         {
-            defaultOutfitsInstances[i] = Instantiate(defualtOutfitsPrefabs[i]);
-            defaultOutfitsInstances[i].transform.parent = targetMesh.transform;
-            defaultOutfitsInstances[i].bones = targetMesh.bones;
-            defaultOutfitsInstances[i].rootBone = targetMesh.rootBone;
+            if (defualtOutfitsPrefabs[i] != null)
+            {
+                defaultOutfitsInstances[i] = Instantiate(defualtOutfitsPrefabs[i]);
+                defaultOutfitsInstances[i].transform.parent = targetMesh.transform;
+                defaultOutfitsInstances[i].bones = targetMesh.bones;
+                defaultOutfitsInstances[i].rootBone = targetMesh.rootBone;
+
+            }
         }
 
 
@@ -52,7 +56,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip(Equipment newEquipment)
     {
-        int equipmentSlot = (int)newEquipment.equipmentType;
+        int equipmentSlot = (int)newEquipment.EquipmentTypeToSlot();
         Equipment oldEquipment = currentEquipment[equipmentSlot];
         if (oldEquipment != null && currentMeshes[equipmentSlot] != null)
         {
@@ -61,7 +65,7 @@ public class EquipmentManager : MonoBehaviour
         currentEquipment[equipmentSlot] = newEquipment;
         if (newEquipment.mesh != null)
         {
-            if (defaultOutfitsInstances[equipmentSlot] != null)
+            if (equipmentSlot < defaultOutfitsInstances.Length && defaultOutfitsInstances[equipmentSlot] != null)
             {
                 Destroy(defaultOutfitsInstances[equipmentSlot].gameObject);
             }
@@ -111,22 +115,22 @@ public class EquipmentManager : MonoBehaviour
                 Debug.LogWarning("Inventory is full!");
                 return;
             }
-            int equipmentType = (int)equipment.equipmentType;
-
-            if (currentMeshes[equipmentType] != null)
+            int equipmentSlot = (int)equipment.equipmentSlot;
+            currentEquipment[equipmentSlot] = null;
+            if (currentMeshes[equipmentSlot] != null)
             {
-                Destroy(currentMeshes[equipmentType].gameObject);
+                Destroy(currentMeshes[equipmentSlot].gameObject);
             }
-            if (equipmentType <= 3)
+            if (defualtOutfitsPrefabs[equipmentSlot] != null)
             {
-                defaultOutfitsInstances[equipmentType] = Instantiate(defualtOutfitsPrefabs[equipmentType]);
-                defaultOutfitsInstances[equipmentType].transform.parent = targetMesh.transform;
-                defaultOutfitsInstances[equipmentType].bones = targetMesh.bones;
-                defaultOutfitsInstances[equipmentType].rootBone = targetMesh.rootBone;
+                defaultOutfitsInstances[equipmentSlot] = Instantiate(defualtOutfitsPrefabs[equipmentSlot]);
+                defaultOutfitsInstances[equipmentSlot].transform.parent = targetMesh.transform;
+                defaultOutfitsInstances[equipmentSlot].bones = targetMesh.bones;
+                defaultOutfitsInstances[equipmentSlot].rootBone = targetMesh.rootBone;
             }
 
             if (onEquipmentChangedCallBack != null) onEquipmentChangedCallBack.Invoke(null, equipment);
-            Debug.LogWarning( inventory.Add(equipment));
+            inventory.Add(equipment);
         }
     }
 }

@@ -19,7 +19,7 @@ public class Item : ScriptableObject
     /// </summary>
     public bool tangible = true;
 
-    public Color[] itemQualityColor = { Color.white, Color.blue, Color.cyan, Color.yellow, Color.green, Color.magenta, Color.red};
+    public static Color[] itemQualityColor = { Color.white, Color.blue, Color.cyan, Color.yellow, Color.green, Color.magenta, Color.red};
 
     public virtual void Use()
     {

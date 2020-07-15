@@ -25,7 +25,7 @@ public class InventorySlot : MonoBehaviour
 
         slotButton.interactable = false;
         removeButton.interactable = false;
-        icon.sprite = null;           // add this will disable this function, why??
+        icon.sprite = null;
         icon.enabled = false;
 
     }

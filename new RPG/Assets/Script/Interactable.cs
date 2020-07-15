@@ -2,7 +2,7 @@
 
 public class Interactable : MonoBehaviour
 {
-    public float radius = 3f;
+    public float radius = 1f;
     public Transform interactionTransform;
 
     public bool isFocused = false;
@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        Debug.Log("INTERACTED with " + transform.name);
+        
     }
 
     private void Update()

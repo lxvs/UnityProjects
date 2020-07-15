@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,11 +22,18 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameMenuUI;
     public GameObject inventoryUI;
+    public GameObject hudUI;
+    public GameObject pickupHint;
+    public Text pickupHintTitle;
+    public Text pickupHintCaption; 
+
 
     void Start()
     {
         gameMenuUI.SetActive(false);
         inventoryUI.SetActive(false);
+        pickupHint.SetActive(false);
+        //hudUI.SetActive(false);
         //if (Inventory.instance.onItemsChangedCallBack != null) 
         //    Inventory.instance.onItemsChangedCallBack.Invoke();
 
@@ -63,6 +71,21 @@ public class UIManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void showPickupHint(string title, string Caption, Color titleColor, bool setToHidden = false)
+    {
+        if(setToHidden && pickupHint.activeSelf)
+        {
+            pickupHint.SetActive(false);
+        }
+        else
+        {
+            pickupHintTitle.text = title;
+            pickupHintTitle.color = titleColor;
+            pickupHintCaption.text = Caption;
+            if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        }
     }
 
 }

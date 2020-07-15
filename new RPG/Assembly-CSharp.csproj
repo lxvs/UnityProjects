@@ -116,6 +116,7 @@
     <Compile Include="Assets\Script\EquipmentSlot.cs" />
     <Compile Include="Assets\Script\EquipmentWeapon.cs" />
     <Compile Include="Assets\Script\GameSettingsManager.cs" />
+    <Compile Include="Assets\Script\Helper\ConvertToRegularMesh.cs" />
     <Compile Include="Assets\Script\Interactable.cs" />
     <Compile Include="Assets\Script\Inventory.cs" />
     <Compile Include="Assets\Script\InventorySlot.cs" />

@@ -31,7 +31,10 @@ public class InventoryUI : MonoBehaviour
             else
             {
                 if (inventorySlots[i].item != null)
+                {
                     inventorySlots[i].ClearSlot();
+
+                }
             }
         }
     }
@@ -40,85 +43,13 @@ public class InventoryUI : MonoBehaviour
     {
         if (newEquipment != null)
         {
-            switch (newEquipment.equipmentType)
-            {
-                case EquipmentType.Head:
-                    equipmentSlots[(int)EquipmentTypeSlot.Head].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Chest:
-                    equipmentSlots[(int)EquipmentTypeSlot.Chest].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Legs:
-                    equipmentSlots[(int)EquipmentTypeSlot.Legs].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Shoes:
-                    equipmentSlots[(int)EquipmentTypeSlot.Shoes].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Waist:
-                    equipmentSlots[(int)EquipmentTypeSlot.Waist].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Hand:
-                    equipmentSlots[(int)EquipmentTypeSlot.Hand].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Weapon:
-                    equipmentSlots[(int)EquipmentTypeSlot.Weapon].AddItem(newEquipment);
-                    break;
-                case EquipmentType.OffHand:
-                    equipmentSlots[(int)EquipmentTypeSlot.OffHand].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Necklace:
-                    equipmentSlots[(int)EquipmentTypeSlot.Necklace].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Ring:
-                    equipmentSlots[(int)EquipmentTypeSlot.Ring].AddItem(newEquipment);
-                    break;
-                case EquipmentType.Ring2:
-                    equipmentSlots[(int)EquipmentTypeSlot.Ring2].AddItem(newEquipment);
-                    break;
-                default:
-                    break;
-            }
+            EquipmentTypeSlot equipmentSlot = newEquipment.equipmentSlot;
+            equipmentSlots[(int)equipmentSlot].AddItem(newEquipment);
         }
         else if(oldEquipment != null)
         {
-            switch (oldEquipment.equipmentType)
-            {
-                case EquipmentType.Head:
-                    equipmentSlots[(int)EquipmentTypeSlot.Head].ClearSlot();
-                    break;
-                case EquipmentType.Chest:
-                    equipmentSlots[(int)EquipmentTypeSlot.Chest].ClearSlot();
-                    break;
-                case EquipmentType.Legs:
-                    equipmentSlots[(int)EquipmentTypeSlot.Legs].ClearSlot();
-                    break;
-                case EquipmentType.Shoes:
-                    equipmentSlots[(int)EquipmentTypeSlot.Shoes].ClearSlot();
-                    break;
-                case EquipmentType.Waist:
-                    equipmentSlots[(int)EquipmentTypeSlot.Waist].ClearSlot();
-                    break;
-                case EquipmentType.Hand:
-                    equipmentSlots[(int)EquipmentTypeSlot.Hand].ClearSlot();
-                    break;
-                case EquipmentType.Weapon:
-                    equipmentSlots[(int)EquipmentTypeSlot.Weapon].ClearSlot();
-                    break;
-                case EquipmentType.OffHand:
-                    equipmentSlots[(int)EquipmentTypeSlot.OffHand].ClearSlot();
-                    break;
-                case EquipmentType.Necklace:
-                    equipmentSlots[(int)EquipmentTypeSlot.Necklace].ClearSlot();
-                    break;
-                case EquipmentType.Ring:
-                    equipmentSlots[(int)EquipmentTypeSlot.Ring].ClearSlot();
-                    break;
-                case EquipmentType.Ring2:
-                    equipmentSlots[(int)EquipmentTypeSlot.Ring2].ClearSlot();
-                    break;
-                default:
-                    break;
-            }
+            EquipmentTypeSlot equipmentSlot = oldEquipment.equipmentSlot;
+            equipmentSlots[(int)equipmentSlot].ClearSlot();
 
         }
 

@@ -18,6 +18,7 @@ public class EquipmentSlot : MonoBehaviour
 
     public void ClearSlot()
     {
+        equipment.equipmentSlot = EquipmentTypeSlot.Unequipped;
         equipment = null;
 
         slotButton.interactable = false;
