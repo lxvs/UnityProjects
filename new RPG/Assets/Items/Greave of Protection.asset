@@ -20,14 +20,16 @@ MonoBehaviour:
   pickable: 1
   tangible: 1
   equipmentType: 2
-  equipmentBlendShapes: 00000000
+  equipmentSlot: 7
+  equipmentMeshRegions: 
   mesh: {fileID: 1998757345405990235, guid: ac2a7c059116b264ead6a60f79d9b9f9, type: 3}
   phyAtkAdd: 0
-  phyDefAdd: 150
+  phyDefAdd: 15
   phyAtkMulSelf: 1
   phyDefMulSelf: 1.1
   phyAtkMul: 1
   phyDefMul: 1
+  phyDmgRdc: 0
   movementSpeedAdd: 0
   movementSpeedMul: 1
   attackSpeedAdd: 0

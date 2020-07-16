@@ -19,6 +19,8 @@ public class Equipment : Item
     public float phyDefMulSelf = 1f;
     public float phyAtkMul = 1f;
     public float phyDefMul = 1f;
+    public int phyDmgRdc = 0;
+
     public float movementSpeedAdd = 0f;
     public float movementSpeedMul = 1f;
     public float attackSpeedAdd = 0f;

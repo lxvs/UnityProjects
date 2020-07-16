@@ -18,14 +18,18 @@ MonoBehaviour:
   ItemQuality: 1
   levelLimit: 0
   pickable: 1
+  tangible: 1
   equipmentType: 0
+  equipmentSlot: 1
+  equipmentMeshRegions: 
   mesh: {fileID: 8433513097177494274, guid: 059990b58f56018499e6692ca2abedac, type: 3}
   phyAtkAdd: 0
-  phyDefAdd: 100
+  phyDefAdd: 20
   phyAtkMulSelf: 1
   phyDefMulSelf: 1.1
   phyAtkMul: 1
   phyDefMul: 1
+  phyDmgRdc: 0
   movementSpeedAdd: 0
   movementSpeedMul: 1
   attackSpeedAdd: 0
