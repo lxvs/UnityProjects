@@ -10,25 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
-  m_Name: Helmet of Star
+  m_Name: Diamond Helmet
   m_EditorClassIdentifier: 
-  name: Helmet of Star
+  name: Diamond Helmet
   discription: 
   icon: {fileID: 21300000, guid: 0366a6790fd986145bdb15fe310ce346, type: 3}
   ItemQuality: 4
-  levelLimit: 14
+  levelLimit: 12
   pickable: 1
   tangible: 1
   equipmentType: 0
+  equipmentSlot: 1
+  equipmentMeshRegions: 
   mesh: {fileID: 8433513097177494274, guid: 059990b58f56018499e6692ca2abedac, type: 3}
+  hpmAdd: 20
+  hpmMul: 20
   phyAtkAdd: 0
-  phyDefAdd: 700
-  phyAtkMulSelf: 1
-  phyDefMulSelf: 1
-  phyAtkMul: 1.25
-  phyDefMul: 1.25
+  phyDefAdd: 40
+  phyAtkMulSelf: 0
+  phyDefMulSelf: 0
+  phyAtkMul: 0
+  phyDefMul: 0
+  hitRate: 5
+  evadeRate: 0
+  phyDmgRdc: 4
   movementSpeedAdd: 0
-  movementSpeedMul: 1
-  attackSpeedAdd: 0
-  attackSpeedMul: 1
-  armorType: 4
+  movementSpeedMul: 0
+  attackSpeedAdd: 20
+  attackSpeedMul: 0
+  armorType: 6

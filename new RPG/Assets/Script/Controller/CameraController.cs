@@ -63,10 +63,7 @@ public class CameraController : MonoBehaviour
             currentZoom = minZoom + currentZoomLevel * zoomNotch;
             //Debug.Log("cz: " + currentZoom + ". czl: " + currentZoomLevel + ". czlf: " + (currentZoom - minZoom) / zoomNotch + ". round: " + Mathf.Round((currentZoom - minZoom) / zoomNotch));
         }
-        
-    }
-    void LateUpdate()
-    {
+
         float alpha = transform.eulerAngles.x * Mathf.PI / 180f;
         float theta = transform.eulerAngles.y * Mathf.PI / 180f;
         float deltaY;
@@ -83,7 +80,7 @@ public class CameraController : MonoBehaviour
             }
 
         }
-        else if (gameSettings.isGamePadConnected) 
+        else if (gameSettings.isGamePadConnected)
         {
             transform.RotateAround(target.position, Vector3.up, Input.GetAxis("HorizontalView") * rotateSpeedHorizontal);
             deltaY = Input.GetAxis("VerticalView");
@@ -95,23 +92,17 @@ public class CameraController : MonoBehaviour
 
         }
         transform.LookAt(target.position + Vector3.up * pitch);
-        //Vector3 oldLEA = transform.eulerAngles;
         transform.eulerAngles = new Vector3(Mathf.Clamp(GetNormalizedEulerAngle(transform.eulerAngles.x), -rotationUpMax, rotationDownMax), transform.eulerAngles.y, transform.eulerAngles.z);
-        //if (transform.localEulerAngles != oldLEA)
-        //    Debug.LogWarning("old LEA = " + oldLEA + ".  new localEulerAngles = " + transform.localEulerAngles + ".   x = " + transform.eulerAngles.x + ".  normalized x = " + GetNormalizedEulerAngle(transform.eulerAngles.x));
-        // (transform.rotation.eulerAngles.x > 180f ? transform.rotation.eulerAngles.x - 360f : transform.rotation.eulerAngles.x)
-
-        //if (deltaY != 0)
-        //    Debug.Log("deltaY = " + deltaY 
-        //        + ".    Signed rotationX = " + (transform.rotation.eulerAngles.x > 180f ? transform.rotation.eulerAngles.x - 360f : transform.rotation.eulerAngles.x) * Mathf.Sign(deltaY)
-        //        + ".    threshold = " + (deltaY > 0 ? rotationUpMax : rotationDownMax));
-
         offset.z = -Mathf.Cos(alpha) * Mathf.Cos(theta);
         offset.x = -Mathf.Cos(alpha) * Mathf.Sin(theta);
         offset.y = Mathf.Sin(alpha);
 
-        //Debug.Log("alpha, sinAlpha = " + transform.rotation.eulerAngles.x + ", " + Mathf.Sin(alpha) + ".  Actual offset = " + (transform.position - target.position - Vector3.up * pitch) /currentZoom);
-        transform.position = Vector3.Lerp(transform.position, target.position + Vector3.up * pitch + offset * currentZoom, Time.deltaTime * 5f);
+        transform.position = Vector3.Slerp(transform.position, target.position + Vector3.up * pitch + offset * currentZoom, Time.deltaTime * 5f);
+
+    }
+    void LateUpdate()
+    {
+
     }
 
     float GetNormalizedEulerAngle(float angleInDegree)

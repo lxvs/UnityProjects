@@ -10,23 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d80c9e574e6b2814fa67e5481c169fad, type: 3}
-  m_Name: Quicksilver
+  m_Name: Destiny
   m_EditorClassIdentifier: 
-  name: Quicksilver
+  name: Destiny
   discription: 
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   ItemQuality: 5
-  levelLimit: 0
+  levelLimit: 15
   pickable: 1
-  equipmentType: 8
+  tangible: 1
+  equipmentType: 6
+  equipmentSlot: 0
+  equipmentMeshRegions: 
   mesh: {fileID: 0}
-  phyAtkAdd: 0
-  phyDefAdd: 0
-  phyAtkMulSelf: 1
-  phyDefMulSelf: 1
-  phyAtkMul: 1.15
-  phyDefMul: 0.75
-  movementSpeedAdd: 1
-  movementSpeedMul: 1.5
-  attackSpeedAdd: 1
-  attackSpeedMul: 1.15
+  hpmAdd: 0
+  hpmMul: 0
+  phyAtkAdd: 1440
+  phyDefAdd: 125
+  phyAtkMulSelf: 0
+  phyDefMulSelf: 0
+  phyAtkMul: 0
+  phyDefMul: 0
+  phyDmgRdc: 0
+  movementSpeedAdd: 0
+  movementSpeedMul: 0
+  attackSpeedAdd: 0
+  attackSpeedMul: 0

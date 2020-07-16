@@ -25,14 +25,17 @@ public class UIManager : MonoBehaviour
     public GameObject hudUI;
     public GameObject pickupHint;
     public Text pickupHintTitle;
-    public Text pickupHintCaption; 
+    public Text pickupHintCaption;
 
+    Image pickupHintBg;
 
     void Start()
     {
+        pickupHintBg = pickupHint.GetComponent<Image>();
         gameMenuUI.SetActive(false);
         inventoryUI.SetActive(false);
         pickupHint.SetActive(false);
+
         //hudUI.SetActive(false);
         //if (Inventory.instance.onItemsChangedCallBack != null) 
         //    Inventory.instance.onItemsChangedCallBack.Invoke();
@@ -73,7 +76,25 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void showPickupHint(string title, string Caption, Color titleColor, bool setToHidden = false)
+    public void HidePickupHint()
+    {
+        pickupHint.SetActive(false);
+    }
+
+    public void ShowPickupHint(string title, ItemQuality itemQuality, string caption = null)
+    {
+        else
+        {
+            pickupHintTitle.text = title;
+            pickupHintTitle.color = Item.itemQualityColor[(int)itemQuality];
+            pickupHintCaption.text = Caption?? "Press ";
+            pickupHintCaption.color = captionColor ?? Color.white;
+            pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
+            if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        }
+    }
+
+    public void ShowPickupHint(string title, string Caption, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null, bool setToHidden = false)
     {
         if(setToHidden && pickupHint.activeSelf)
         {
@@ -82,8 +103,10 @@ public class UIManager : MonoBehaviour
         else
         {
             pickupHintTitle.text = title;
-            pickupHintTitle.color = titleColor;
+            pickupHintTitle.color = titleColor ?? Color.white;
             pickupHintCaption.text = Caption;
+            pickupHintCaption.color = captionColor ?? Color.white;
+            pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
             if (!pickupHint.activeSelf) pickupHint.SetActive(true);
         }
     }

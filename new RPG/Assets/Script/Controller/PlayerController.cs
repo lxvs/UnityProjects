@@ -63,10 +63,6 @@ public class PlayerController : MonoBehaviour
                 SetFocus(neariestPickup);
                 if (pickupDistanceCheckCoroutine != null) StopCoroutine(pickupDistanceCheckCoroutine);
             }
-            else if (false)
-            {
-
-            }
         }
 
         pickupDistanceCheckCoroutine =  StartCoroutine("PickupsDistanceCheck");
@@ -78,16 +74,16 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator PickupsDistanceCheck()
     {
-        if (neariestPickup == null || Vector3.Distance(neariestPickup.transform.position, transform.position) > 1f)
+        if (neariestPickup == null || Vector3.Distance(neariestPickup.transform.position, transform.position) > 2f)
         {
             neariestPickup = null;
-            float leastDistance = 1f;
+            float leastDistance = 2f;
 
             foreach (ItemPickup pickupItem in pickups.GetComponentsInChildren<ItemPickup>())
             {
                 if (pickupItem == null) continue;
                 float distance = Vector3.Distance(pickupItem.transform.position, transform.position);
-                if (distance < (neariestPickup == null ? leastDistance : leastDistance - .3f))  
+                if (distance < (neariestPickup == null ? leastDistance : leastDistance - .5f))  
                 {
                     leastDistance = distance;
                     neariestPickup = pickupItem;
@@ -97,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
             if (neariestPickup != null)
             {
-                UIManager.instance.showPickupHint(neariestPickup.name, "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to get.", Item.itemQualityColor[(int)neariestPickup.item.ItemQuality]);
+                UIManager.instance.ShowPickupHint(neariestPickup.name, "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to get.", Item.itemQualityColor[(int)neariestPickup.item.ItemQuality]);
             }
             else if (UIManager.instance.pickupHint.activeSelf)
             {

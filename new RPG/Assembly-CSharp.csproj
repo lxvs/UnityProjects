@@ -108,8 +108,13 @@
     <Compile Include="Assets\Environment\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Environment\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Environment\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\Script\CameraController.cs" />
     <Compile Include="Assets\Script\CharactorAnimator.cs" />
+    <Compile Include="Assets\Script\Combat.cs" />
+    <Compile Include="Assets\Script\Controller\CameraController.cs" />
+    <Compile Include="Assets\Script\Controller\EnemyController.cs" />
+    <Compile Include="Assets\Script\Controller\PlayerController.cs" />
+    <Compile Include="Assets\Script\Controller\PlayerMotor.cs" />
+    <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\Equipment.cs" />
     <Compile Include="Assets\Script\EquipmentArmor.cs" />
     <Compile Include="Assets\Script\EquipmentManager.cs" />
@@ -123,9 +128,9 @@
     <Compile Include="Assets\Script\InventoryUI.cs" />
     <Compile Include="Assets\Script\Item.cs" />
     <Compile Include="Assets\Script\ItemPickup.cs" />
-    <Compile Include="Assets\Script\PlayerController.cs" />
-    <Compile Include="Assets\Script\PlayerMotor.cs" />
+    <Compile Include="Assets\Script\PlayerManager.cs" />
     <Compile Include="Assets\Script\Stats\CharStats.cs" />
+    <Compile Include="Assets\Script\Stats\EnemyStats.cs" />
     <Compile Include="Assets\Script\Stats\PlayerStats.cs" />
     <Compile Include="Assets\Script\Stats\Stat.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />

@@ -5,6 +5,7 @@ public enum ItemQuality { Common, Uncommon, Rare, Epic, Suits, Unique, Special }
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+
     new public string name = "New item";
     public string discription;
     public Sprite icon = null;
@@ -19,7 +20,7 @@ public class Item : ScriptableObject
     /// </summary>
     public bool tangible = true;
 
-    public static Color[] itemQualityColor = { Color.white, Color.blue, Color.cyan, Color.yellow, Color.green, Color.magenta, Color.red};
+    public static Color[] itemQualityColor = { Color.white, new Color(.5f, .5f, 1f) , Color.cyan, Color.yellow, Color.green, Color.magenta, new Color(1f, .5f, .5f)};
 
     public virtual void Use()
     {

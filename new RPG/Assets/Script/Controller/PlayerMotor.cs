@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -17,10 +15,9 @@ public class PlayerMotor : MonoBehaviour
     }
     private void Update()
     {
-        
-        StartCoroutine("NavToTarget");
-        
+        if (target != null) NavToTarget();
     }
+
     public void MoveToPoint (Vector3 point)
     {
         agent.SetDestination(point);
@@ -56,14 +53,11 @@ public class PlayerMotor : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    IEnumerator NavToTarget()
+    void NavToTarget()
     {
-        if (target != null)
-        {
-            agent.SetDestination(target.interactionTransform.position);
-            FaceTarget();
-            yield return new WaitForSeconds(.1f);
-        }
+        agent.SetDestination(target.interactionTransform.position);
+        FaceTarget();
+
     }
     
 }

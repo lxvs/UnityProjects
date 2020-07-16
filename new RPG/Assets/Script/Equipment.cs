@@ -13,20 +13,26 @@ public class Equipment : Item
     public EquipmentMeshRegions[] equipmentMeshRegions;
     public SkinnedMeshRenderer mesh;
 
+    public int hpmAdd = 0;
+    public int hpmMul = 0;
+
     public int phyAtkAdd = 0;
     public int phyDefAdd = 0;
-    public float phyAtkMulSelf = 1f;
-    public float phyDefMulSelf = 1f;
-    public float phyAtkMul = 1f;
-    public float phyDefMul = 1f;
+    public int phyAtkMulSelf = 0;
+    public int phyDefMulSelf = 0;
+    public int phyAtkMul = 0;       // * Σ x %
+    public int phyDefMul = 0;
     public int phyDmgRdc = 0;
+    public int phyDmgRdcRate = 0;
 
-    public float movementSpeedAdd = 0f;
-    public float movementSpeedMul = 1f;
-    public float attackSpeedAdd = 0f;
-    public float attackSpeedMul = 1f;
-    //public new short maxStack = 1;
-    //public new short maxCarry = 32;
+    public int hitRate = 0;         // %
+    public int evadeRate = 0;
+    public int critRate = 0;
+
+    public int movementSpeedAdd = 0;    // x %, default player movement speed = 600.
+    public int movementSpeedMul = 0;
+    public int attackSpeedAdd = 0;
+    public int attackSpeedMul = 0;
 
     public override void Use()
     {

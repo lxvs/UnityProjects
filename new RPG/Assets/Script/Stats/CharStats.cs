@@ -2,52 +2,76 @@
 
 public class CharStats : MonoBehaviour
 {
-    public int lvl;
+    public int lvl = 1;
     public int xp;
-    public int hp { get; private set; }
+    public int hp;
     public Stat hpm;
     public Stat phyAtk;
     public Stat phyDef;
-
     public Stat phyDmgReduce;
+    public Stat phyDmgRdcRate;
+
+    public Stat hitRate;
+    public Stat evadeRate;
+    public Stat critRate;
+
+    public Stat atkSpeed;
+    public Stat movSpeed;   // movement speed
 
     private void Awake()
     {
         lvl = 1;
         hpm.SetBaseValue(50 + lvl * 2);
         hp = hpm.GetValue();
-        phyAtk.SetBaseValue((int)Mathf.Pow(lvl, 2));
+        phyAtk.SetBaseValue(10 * lvl);
         phyDef.SetBaseValue(10 * lvl);
+        hitRate.SetBaseValue(0);
+        evadeRate.SetBaseValue(0);
+        critRate.SetBaseValue(5);
+        phyDmgReduce.SetBaseValue(0);
+        atkSpeed.SetBaseValue(100);
+        movSpeed.SetBaseValue(600);
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Debug"))
-        {
-            TakeDamage(15, 1);
-        }
-    }
-
-    public void TakeDamage(int sourceAtk, int sourceLvl)
+    public void TakeDamage(CharStats sourceStats)
     {
         if (hp > 0)
         {
-            //float evadeRate = sourceAtk > phyDef.GetValue() ? .5f / ((sourceAtk - phyDef.GetValue()) ^ (sourceLvl - lvl + 1)) : .95f;
-            float evadeRate = sourceAtk > phyDef.GetValue() ? Mathf.Pow((float)phyDef.GetValue() / sourceAtk, 3f) - .05f : .95f;
-            Debug.Log(phyDef.GetValue() + ".  eR = " + evadeRate);
-            evadeRate = Mathf.Clamp(evadeRate, .05f, .95f);
-            if (Random.value >= evadeRate)
+            int sourceAtk = sourceStats.phyAtk.GetValue();
+            int sourceLvl = sourceStats.lvl;
+            int sourceHitRate = sourceStats.hitRate.GetValue();
+            float lvlDifferenceCoefficient = Mathf.Pow(1.1f, lvl - sourceLvl);
+            int defConverted = (int)(phyDef.GetValue() * lvlDifferenceCoefficient);
+            float evadeRateConverted = sourceAtk >= (defConverted * 2) ? (defConverted / sourceAtk / 2f * .9f + .05f) : .95f;  //// ????
+            evadeRateConverted = Mathf.Clamp(evadeRateConverted + (evadeRate.GetValue() - sourceHitRate) * .01f, .05f, .95f);
+            if (Random.value >= evadeRateConverted)
             {
-                int damage = (int)((float)sourceAtk / sourceLvl);
+                int damage;
+                if (Random.value <= critRate.GetValue() * .01f)
+                {
+                    damage = sourceAtk / sourceLvl * 2;
+
+                }
+                else
+                {
+                    damage = (int)(sourceAtk / sourceLvl * Random.Range(.5f, 1.5f));
+
+                }
+
                 damage -= phyDmgReduce.GetValue();
-                damage = Mathf.Clamp(damage, 1, int.MaxValue);
-                Debug.Log("<color=magenta>" + transform.name + "</color> takes <color=magenta>" + damage + "</color> damage.");
+                damage = (int)(damage * (1f - phyDmgRdcRate.GetValue() * .01f));
+                damage = Mathf.Clamp(damage, (sourceLvl + 1) / 2, int.MaxValue);
+                Debug.Log("<color=magenta>" + transform.name + "</color> takes <color=magenta>" + damage + "</color> damage. eR = " + evadeRateConverted);
                 hp -= damage;
                 if (hp <= 0)
                 {
                     hp = 0;
                     Die();
                 }
+            }
+            else
+            {
+                Debug.Log(transform.name + " <color=green>evaded successfully</color>. eR = " + evadeRateConverted + "   def = " + defConverted + "  atk = " + sourceAtk);
             }
         }
 

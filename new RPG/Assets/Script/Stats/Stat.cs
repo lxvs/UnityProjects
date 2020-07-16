@@ -9,8 +9,8 @@ public class Stat
     [SerializeField]
     private int baseValue;
 
-    private List<int> modifiersAdd = new List<int>();
-    private List<float> modifiersMul = new List<float>();
+    List<int> modifiersAdd = new List<int>();
+    List<float> modifiersMul = new List<float>();
 
     public void SetBaseValue(int bValue)
     {
@@ -24,12 +24,13 @@ public class Stat
         {
             valueAdded += modifierAdd;
         }
-        float valueMuled = valueAdded;
+        float valueToMultiply = 0;
         foreach (float modifierMul in modifiersMul)
         {
-            valueMuled *= modifierMul;
+            valueToMultiply += modifierMul;
         }
-        return Mathf.RoundToInt(valueMuled);
+        valueAdded = (int)(valueAdded * (1 + (valueToMultiply / 100f)));
+        return Mathf.RoundToInt(valueAdded);
     }
 
     public void AddModifier(ModifierType modifierType, float modifierValue, bool isRemoving = false)

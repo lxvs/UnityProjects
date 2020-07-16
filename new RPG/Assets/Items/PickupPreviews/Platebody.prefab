@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a7b1a8883e33d479cdf48f0e1b348b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.8
+  radius: 1
   interactionTransform: {fileID: 3931603866804032809}
   isFocused: 0
   hasInteracted: 0

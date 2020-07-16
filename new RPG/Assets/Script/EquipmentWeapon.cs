@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EquipmentWeapon : MonoBehaviour
+public enum WeaponType { Knife, Axe, Club }
+[CreateAssetMenu(fileName = "New Armor", menuName = "Inventory/Equipment-Armor")]
+public class EquipmentWeapon : Equipment
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public WeaponType weaponType;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

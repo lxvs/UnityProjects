@@ -10,27 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
-  m_Name: Diamond Helmet
+  m_Name: Diamond Armor
   m_EditorClassIdentifier: 
-  name: Diamond Helmet
+  name: Diamond Chest Armor
   discription: 
-  icon: {fileID: 21300000, guid: 0366a6790fd986145bdb15fe310ce346, type: 3}
+  icon: {fileID: 21300000, guid: 9a9ab2c32182cc247869b640bb1a6928, type: 3}
   ItemQuality: 4
   levelLimit: 12
   pickable: 1
   tangible: 1
-  equipmentType: 0
-  equipmentSlot: 1
+  equipmentType: 1
+  equipmentSlot: 4
   equipmentMeshRegions: 
-  mesh: {fileID: 8433513097177494274, guid: 059990b58f56018499e6692ca2abedac, type: 3}
+  mesh: {fileID: 6707443821530652685, guid: 79bfa51a4866ea14fa9bbae3dcb526d3, type: 3}
+  hpmAdd: 28
+  hpmMul: 80
   phyAtkAdd: 0
-  phyDefAdd: 700
-  phyAtkMulSelf: 1
-  phyDefMulSelf: 1.1
-  phyAtkMul: 1
-  phyDefMul: 1.5
+  phyDefAdd: 70
+  phyAtkMulSelf: 0
+  phyDefMulSelf: 0
+  phyAtkMul: 0
+  phyDefMul: 0
+  hitRate: 0
+  evadeRate: 10
+  phyDmgRdc: 4
   movementSpeedAdd: 0
-  movementSpeedMul: 1
+  movementSpeedMul: 0
   attackSpeedAdd: 0
-  attackSpeedMul: 1
+  attackSpeedMul: 0
   armorType: 6

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
-  m_Name: DefualtShirt
+  m_Name: DefualtPants
   m_EditorClassIdentifier: 
   name: New item
   discription: 
@@ -19,17 +19,21 @@ MonoBehaviour:
   levelLimit: 0
   pickable: 1
   tangible: 1
-  equipmentType: 1
-  equipmentBlendShapes: 0100000002000000
-  mesh: {fileID: 878196407766079246, guid: b57789fc52a03504caad805420f932fd, type: 3}
+  equipmentType: 3
+  equipmentSlot: 0
+  equipmentMeshRegions: 
+  mesh: {fileID: 351535017685753784, guid: 22751fb9c07a56a4994ced336cb6bf71, type: 3}
+  hpmAdd: 0
+  hpmMul: 0
   phyAtkAdd: 0
   phyDefAdd: 0
-  phyAtkMulSelf: 1
-  phyDefMulSelf: 1
-  phyAtkMul: 1
-  phyDefMul: 1
+  phyAtkMulSelf: 0
+  phyDefMulSelf: 0
+  phyAtkMul: 0
+  phyDefMul: 0
+  phyDmgRdc: 0
   movementSpeedAdd: 0
-  movementSpeedMul: 1
+  movementSpeedMul: 0
   attackSpeedAdd: 0
-  attackSpeedMul: 1
+  attackSpeedMul: 0
   armorType: 0
