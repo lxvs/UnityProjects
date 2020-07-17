@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f92d15667ea0a54cb62a32e804d53ca, type: 3}
-  m_Name: Destiny
+  m_Script: {fileID: 11500000, guid: d80c9e574e6b2814fa67e5481c169fad, type: 3}
+  m_Name: Destiny2
   m_EditorClassIdentifier: 
   name: Destiny
   discription: 
@@ -23,21 +23,20 @@ MonoBehaviour:
   equipmentSlot: 3
   equipmentMeshRegions: 
   mesh: {fileID: 0}
-  hpmAdd: 0
-  hpmMul: 0
-  phyAtkAdd: 0
-  phyDefAdd: 0
+  hpmAdd: 25
+  hpmMul: 10
+  phyAtkAdd: 40
+  phyDefAdd: 10
   phyAtkMulSelf: 0
   phyDefMulSelf: 0
   phyAtkMul: 0
   phyDefMul: 0
   phyDmgRdc: 0
-  phyDmgRdcRate: 0
+  phyDmgRdcRate: 5
   hitRate: 0
   evadeRate: 0
   critRate: 0
-  movementSpeedAdd: 0
+  movementSpeedAdd: 50
   movementSpeedMul: 0
-  attackSpeedAdd: 0
+  attackSpeedAdd: 25
   attackSpeedMul: 0
-  weaponType: 0
