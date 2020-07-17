@@ -21,11 +21,25 @@ public class UIManager : MonoBehaviour
     #endregion
 
     public GameObject gameMenuUI;
-    public GameObject inventoryUI;
+    public GameObject inventoryParentUI;
     public GameObject hudUI;
     public GameObject pickupHint;
     public Text pickupHintTitle;
     public Text pickupHintCaption;
+
+    public Text tUsername;
+    public Text tHp;
+    public Text tLvl;
+    public Text tXp;
+    public Text tAtk;
+    public Text tDef;
+    public Text tDr;
+    public Text tDrr;
+    public Text tHr;
+    public Text tEr;
+    public Text tCr;
+    public Text tSpeedAtk;
+    public Text tSpeedMov;
 
     Image pickupHintBg;
 
@@ -33,13 +47,9 @@ public class UIManager : MonoBehaviour
     {
         pickupHintBg = pickupHint.GetComponent<Image>();
         gameMenuUI.SetActive(false);
-        inventoryUI.SetActive(false);
+        inventoryParentUI.SetActive(false);
         pickupHint.SetActive(false);
-
-        //hudUI.SetActive(false);
-        //if (Inventory.instance.onItemsChangedCallBack != null) 
-        //    Inventory.instance.onItemsChangedCallBack.Invoke();
-
+        UpdateStats();
     }
 
     void Update()
@@ -47,13 +57,13 @@ public class UIManager : MonoBehaviour
         if (Input.GetButtonDown("Inventory"))
         {
             if (gameMenuUI.activeSelf) gameMenuUI.SetActive(false);
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            inventoryParentUI.SetActive(!inventoryParentUI.activeSelf);
         }
         if (Input.GetButtonDown("Cancel"))      
         {
-            if(inventoryUI.activeSelf || false)
+            if(inventoryParentUI.activeSelf || false)
             {
-                inventoryUI.SetActive(false);
+                inventoryParentUI.SetActive(false);
 
             }
             else
@@ -65,11 +75,27 @@ public class UIManager : MonoBehaviour
         if (Input.GetButtonDown("Back"))        // remember CANCEL and BACK can't be the same key
         {
             if (gameMenuUI.activeSelf) gameMenuUI.SetActive(false);
-            if (inventoryUI.activeSelf) inventoryUI.SetActive(false);
+            if (inventoryParentUI.activeSelf) inventoryParentUI.SetActive(false);
         }
     }
 
-
+    public void UpdateStats()
+    {
+        PlayerStats playerStats = PlayerManager.instance.currentPlayer.GetComponent<PlayerStats>();
+        tUsername.text = "Johnny Appleseed";
+        tHp.text = "HP: " + playerStats.hp + "/" + playerStats.hpm.GetValue();
+        tLvl.text = "Lv." + playerStats.lvl;
+        tXp.text = "XP: " + playerStats.xp + "/" + (Mathf.Pow(playerStats.lvl + 1, 3) * 50);
+        tAtk.text = "ATK: " + playerStats.phyAtk.GetValue();
+        tDef.text = "DEF: " + playerStats.phyDef.GetValue();
+        tDr.text = "DR: " + playerStats.phyDmgReduce.GetValue();
+        tDrr.text = "DRR: " + playerStats.phyDmgRdcRate.GetValue() + "%";
+        tHr.text = "HR: " + playerStats.hitRate.GetValue() + "%";
+        tEr.text = "ER: " + playerStats.evadeRate.GetValue() + "%";
+        tCr.text = "CR: " + playerStats.critRate.GetValue() + "%";
+        tSpeedAtk.text = "ATK Speed: " + playerStats.atkSpeed.GetValue() +"%";
+        tSpeedMov.text = "MOV Speed: " + playerStats.movSpeed.GetValue();
+    }
 
     public void ExitGame()
     {

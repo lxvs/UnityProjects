@@ -37,9 +37,9 @@ public class PlayerStats : CharStats
                 hpmChanged = true;
             }
 
-            if (oldEquipment.phyAtkAdd != 0) phyAtk.AddModifier(ModifierType.modifiersAdd, oldEquipment.phyAtkAdd * (oldEquipment.phyAtkMulSelf == 1f ? 1 : oldEquipment.phyAtkMulSelf), true);
+            if (oldEquipment.phyAtkAdd != 0) phyAtk.AddModifier(ModifierType.modifiersAdd, oldEquipment.phyAtkAdd * (1f + oldEquipment.phyAtkMulSelf * .01f), true);
             if (oldEquipment.phyAtkMul != 0) phyAtk.AddModifier(ModifierType.modifiersMul, oldEquipment.phyAtkMul, true);
-            if (oldEquipment.phyDefAdd != 0) phyDef.AddModifier(ModifierType.modifiersAdd, oldEquipment.phyDefAdd * (oldEquipment.phyDefMulSelf == 1f ? 1 : oldEquipment.phyDefMulSelf), true);
+            if (oldEquipment.phyDefAdd != 0) phyDef.AddModifier(ModifierType.modifiersAdd, oldEquipment.phyDefAdd * (1f + oldEquipment.phyDefMulSelf * .01f), true);
             if (oldEquipment.phyDefMul != 0) phyDef.AddModifier(ModifierType.modifiersMul, oldEquipment.phyDefMul, true);
             if (oldEquipment.hitRate != 0) hitRate.AddModifier(ModifierType.modifiersAdd, oldEquipment.hitRate, true);
             if (oldEquipment.evadeRate != 0) evadeRate.AddModifier(ModifierType.modifiersAdd, oldEquipment.evadeRate, true);
@@ -93,9 +93,9 @@ public class PlayerStats : CharStats
                 hpmChanged = true;
             }
 
-            if (newEquipment.phyAtkAdd != 0) phyAtk.AddModifier(ModifierType.modifiersAdd, newEquipment.phyAtkAdd * (newEquipment.phyAtkMulSelf == 1f ? 1 : newEquipment.phyAtkMulSelf));
+            if (newEquipment.phyAtkAdd != 0) phyAtk.AddModifier(ModifierType.modifiersAdd, newEquipment.phyAtkAdd * (1f + newEquipment.phyAtkMulSelf * .01f));
             if (newEquipment.phyAtkMul != 0) phyAtk.AddModifier(ModifierType.modifiersMul, newEquipment.phyAtkMul);
-            if (newEquipment.phyDefAdd != 0) phyDef.AddModifier(ModifierType.modifiersAdd, newEquipment.phyDefAdd * (newEquipment.phyDefMulSelf == 1f ? 1 : newEquipment.phyDefMulSelf));
+            if (newEquipment.phyDefAdd != 0) phyDef.AddModifier(ModifierType.modifiersAdd, newEquipment.phyDefAdd * (1f + newEquipment.phyDefMulSelf * .01f));
             if (newEquipment.phyDefMul != 0) phyDef.AddModifier(ModifierType.modifiersMul, newEquipment.phyDefMul);
             if (newEquipment.hitRate != 0) hitRate.AddModifier(ModifierType.modifiersAdd, newEquipment.hitRate);
             if (newEquipment.evadeRate != 0) evadeRate.AddModifier(ModifierType.modifiersAdd, newEquipment.evadeRate);
@@ -126,5 +126,7 @@ public class PlayerStats : CharStats
         {
             hp = (int)((float)hpm.GetValue() * hpNow / hpmNow);
         }
+
+        UIManager.instance.UpdateStats();
     }
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
   pickable: 1
   tangible: 1
   equipmentType: 1
-  equipmentSlot: 4
+  equipmentSlot: 12
   equipmentMeshRegions: 
   mesh: {fileID: 6707443821530652685, guid: 79bfa51a4866ea14fa9bbae3dcb526d3, type: 3}
   hpmAdd: 0
@@ -28,10 +28,14 @@ MonoBehaviour:
   phyAtkAdd: 0
   phyDefAdd: 35
   phyAtkMulSelf: 0
-  phyDefMulSelf: 0
+  phyDefMulSelf: 25
   phyAtkMul: 0
   phyDefMul: 0
   phyDmgRdc: 0
+  phyDmgRdcRate: 0
+  hitRate: 0
+  evadeRate: 0
+  critRate: 0
   movementSpeedAdd: 0
   movementSpeedMul: 0
   attackSpeedAdd: 0

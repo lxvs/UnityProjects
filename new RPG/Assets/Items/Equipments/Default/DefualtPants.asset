@@ -32,6 +32,10 @@ MonoBehaviour:
   phyAtkMul: 0
   phyDefMul: 0
   phyDmgRdc: 0
+  phyDmgRdcRate: 0
+  hitRate: 0
+  evadeRate: 0
+  critRate: 0
   movementSpeedAdd: 0
   movementSpeedMul: 0
   attackSpeedAdd: 0

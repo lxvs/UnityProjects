@@ -9,7 +9,7 @@ public class CharStats : MonoBehaviour
     public Stat phyAtk;
     public Stat phyDef;
     public Stat phyDmgReduce;
-    public Stat phyDmgRdcRate;
+    public Stat phyDmgRdcRate;      // %
 
     public Stat hitRate;
     public Stat evadeRate;
@@ -42,7 +42,22 @@ public class CharStats : MonoBehaviour
             int sourceHitRate = sourceStats.hitRate.GetValue();
             float lvlDifferenceCoefficient = Mathf.Pow(1.1f, lvl - sourceLvl);
             int defConverted = (int)(phyDef.GetValue() * lvlDifferenceCoefficient);
-            float evadeRateConverted = sourceAtk < (defConverted * 2) ? (sourceAtk / defConverted / 2f * .9f + .05f) : .95f;
+            float evadeRateConverted;
+            if (sourceAtk >= defConverted * 2)
+            {
+                evadeRateConverted = .05f;
+            }
+            else if (sourceAtk * 2 <= defConverted)
+            {
+                evadeRateConverted = .95f;
+            }
+            else
+            {
+                //evadeRateConverted = defConverted / sourceAtk * .6f - .25f;
+                float x = (float)defConverted / sourceAtk;
+                //evadeRateConverted = Mathf.Pow(x, 2) * 11f / 30f + x * 27f / 20f - 43f / 60f;
+                evadeRateConverted = -.3f * Mathf.Pow(x, 2) + 1.35f * x - .55f;
+            }
             evadeRateConverted = Mathf.Clamp(evadeRateConverted + (evadeRate.GetValue() - sourceHitRate) * .01f, .05f, .95f);
 
             if (Random.value >= evadeRateConverted)

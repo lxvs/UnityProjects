@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9affe54fc7932b428d72e34bd0153b6, type: 3}
-  m_Name: DefualtShoes
+  m_Name: DefualtHair
   m_EditorClassIdentifier: 
   name: New item
   discription: 
@@ -19,10 +19,10 @@ MonoBehaviour:
   levelLimit: 0
   pickable: 1
   tangible: 1
-  equipmentType: 4
+  equipmentType: 0
   equipmentSlot: 0
   equipmentMeshRegions: 
-  mesh: {fileID: 1430538244089113372, guid: adc7354741ce77f49a33074595a541f3, type: 3}
+  mesh: {fileID: 5025764399587527045, guid: c0b2e78a37ffaf047a8185cb36d944e0, type: 3}
   hpmAdd: 0
   hpmMul: 0
   phyAtkAdd: 0
@@ -32,6 +32,10 @@ MonoBehaviour:
   phyAtkMul: 0
   phyDefMul: 0
   phyDmgRdc: 0
+  phyDmgRdcRate: 0
+  hitRate: 0
+  evadeRate: 0
+  critRate: 0
   movementSpeedAdd: 0
   movementSpeedMul: 0
   attackSpeedAdd: 0
