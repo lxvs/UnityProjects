@@ -42,8 +42,9 @@ public class CharStats : MonoBehaviour
             int sourceHitRate = sourceStats.hitRate.GetValue();
             float lvlDifferenceCoefficient = Mathf.Pow(1.1f, lvl - sourceLvl);
             int defConverted = (int)(phyDef.GetValue() * lvlDifferenceCoefficient);
-            float evadeRateConverted = sourceAtk >= (defConverted * 2) ? (defConverted / sourceAtk / 2f * .9f + .05f) : .95f;  //// ????
+            float evadeRateConverted = sourceAtk < (defConverted * 2) ? (sourceAtk / defConverted / 2f * .9f + .05f) : .95f;
             evadeRateConverted = Mathf.Clamp(evadeRateConverted + (evadeRate.GetValue() - sourceHitRate) * .01f, .05f, .95f);
+
             if (Random.value >= evadeRateConverted)
             {
                 int damage;
@@ -61,7 +62,7 @@ public class CharStats : MonoBehaviour
                 damage -= phyDmgReduce.GetValue();
                 damage = (int)(damage * (1f - phyDmgRdcRate.GetValue() * .01f));
                 damage = Mathf.Clamp(damage, (sourceLvl + 1) / 2, int.MaxValue);
-                Debug.Log("<color=magenta>" + transform.name + "</color> takes <color=magenta>" + damage + "</color> damage. eR = " + evadeRateConverted);
+                Debug.Log("<color=magenta>" + transform.name + "</color> takes <color=magenta>" + damage + "</color> damage. eR = " + evadeRateConverted + ".  " + hp + "/" + hpm.GetValue());
                 hp -= damage;
                 if (hp <= 0)
                 {
@@ -71,7 +72,7 @@ public class CharStats : MonoBehaviour
             }
             else
             {
-                Debug.Log(transform.name + " <color=green>evaded successfully</color>. eR = " + evadeRateConverted + "   def = " + defConverted + "  atk = " + sourceAtk);
+                Debug.Log(transform.name + " <color=green>evaded successfully</color>." + evadeRateConverted);
             }
         }
 

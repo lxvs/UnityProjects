@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,64 +11,125 @@ public class PlayerController : MonoBehaviour
     public Interactable focus;
     public GameObject pickups;
 
+    bool isUsingMouse = true;
+    UIManager uiManager;
     ItemPickup neariestPickup;
     Coroutine pickupDistanceCheckCoroutine;
     void Start()
     {
         cam = Camera.main;
-        if (motor == null) motor = GetComponent<PlayerMotor>();
+        motor = GetComponent<PlayerMotor>();
+        uiManager = UIManager.instance;
     }
 
     void Update()
     {
-        if(!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetMouseButton(0))
+            if (isUsingMouse)
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit raycastHit;
 
-                if (Physics.Raycast(ray, out raycastHit, 100f, movementMask))
+                if (Input.GetMouseButton(0))
                 {
-                    if (focus != null) RemoveFocus();
-                    motor.MoveToPoint(raycastHit.point);
+                    if (Physics.Raycast(ray, out raycastHit, 100f, movementMask))
+                    {
+                        if (focus != null) RemoveFocus();
+                        motor.MoveToPoint(raycastHit.point);
+                    }
+                }
+                else
+                {
+                    if (Physics.Raycast(ray, out raycastHit, 100f))
+                    {
+                        Interactable interactable = raycastHit.collider.GetComponent<Interactable>();
+                        if (interactable != null)
+                        {
+                            Enemy enemy = interactable as Enemy;
+                            ItemPickup itemPickup = interactable as ItemPickup;
+                            if (itemPickup != null)
+                            {
+                                if (focus == null)
+                                {
+                                    uiManager.ShowPickupHint(itemPickup, isUsingMouse);
+                                }
+                                if (Input.GetMouseButtonDown(1))
+                                {
+                                    uiManager.ShowInteractableFocusHint(itemPickup);
+                                    SetFocus(itemPickup);
+                                }
+                            }
+                            else if (enemy != null)
+                            {
+                                if (focus == null)
+                                {
+                                    uiManager.ShowPickupHint(enemy);
+                                }
+                                if (Input.GetMouseButtonDown(1))
+                                {
+                                    uiManager.ShowInteractableFocusHint(enemy);
+                                    SetFocus(enemy);
+                                }
+                            }
+                            else
+                            {
+                                if (focus == null)
+                                {
+                                    uiManager.ShowPickupHint(interactable.name);
+                                }
+                                if (Input.GetMouseButtonDown(1))
+                                {
+                                    uiManager.ShowInteractableFocusHint(interactable.name);
+                                    SetFocus(interactable);
+                                }
+                            }
+                        }
+                        else if (focus == null)
+                        {
+                            uiManager.HidePickupHint();
+                        }
+
+                    }
+                    else if (focus == null)
+                    {
+                        uiManager.HidePickupHint();
+                    }
+
                 }
             }
-
-            if (Input.GetMouseButtonDown(1))
+            else
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycastHit;
-
-                if (Physics.Raycast(ray, out raycastHit, 100f))
+                if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
                 {
-                    Interactable interactable = raycastHit.collider.GetComponent<Interactable>();
-                    if (interactable != null)
-                    {
-                        SetFocus(interactable);
-                    }
-                    else
-                    {
-                        RemoveFocus();
-                    }
+                    isUsingMouse = true;
                 }
             }
         }
-
-        if(Input.GetButtonDown("Operation"))
-        {
-            if(neariestPickup != null)
-            {
-                SetFocus(neariestPickup);
-                if (pickupDistanceCheckCoroutine != null) StopCoroutine(pickupDistanceCheckCoroutine);
-            }
-        }
-
-        pickupDistanceCheckCoroutine =  StartCoroutine("PickupsDistanceCheck");
-
-        Vector3 velocity = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1f);
-        if (velocity != Vector3.zero) motor.Move(velocity);
         
+        if (!isUsingMouse)
+        {
+            if (Input.GetButtonDown("Operation"))
+            {
+                if (neariestPickup != null)
+                {
+                    SetFocus(neariestPickup);
+                    if (pickupDistanceCheckCoroutine != null) StopCoroutine(pickupDistanceCheckCoroutine);
+                }
+            }
+
+            pickupDistanceCheckCoroutine = StartCoroutine("PickupsDistanceCheck");
+
+            Vector3 velocity = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1f);
+            if (velocity != Vector3.zero)
+            {
+                motor.Move(velocity);
+            }
+        }
+        else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            isUsingMouse = false;
+        }
     }
 
     IEnumerator PickupsDistanceCheck()
@@ -93,11 +153,11 @@ public class PlayerController : MonoBehaviour
 
             if (neariestPickup != null)
             {
-                UIManager.instance.ShowPickupHint(neariestPickup.name, "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to get.", Item.itemQualityColor[(int)neariestPickup.item.ItemQuality]);
+                uiManager.ShowPickupHint(neariestPickup, isUsingMouse);
             }
-            else if (UIManager.instance.pickupHint.activeSelf)
+            else if (uiManager.pickupHint.activeSelf)
             {
-                UIManager.instance.showPickupHint("", "", Color.white, true);
+                uiManager.HidePickupHint();
             }
         }
 

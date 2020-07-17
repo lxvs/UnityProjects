@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 
+public enum EnemyQuality { Minion, Champion, Leader, Boss }
+
 [RequireComponent(typeof(CharStats))]
 public class Enemy : Interactable
 {
     PlayerManager currentPlayer;
-    CharStats enemyStats;
+    public CharStats enemyStats;
+    public EnemyQuality enemyQuality = EnemyQuality.Minion;
+
+    public static Color[] enemyQualityColor = { Color.white, Color.cyan, Color.yellow, new Color(1f, .5f, .5f) };
 
 
     private void Start()

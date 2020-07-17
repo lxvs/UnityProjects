@@ -81,34 +81,83 @@ public class UIManager : MonoBehaviour
         pickupHint.SetActive(false);
     }
 
-    public void ShowPickupHint(string title, ItemQuality itemQuality, string caption = null)
-    {
-        else
-        {
-            pickupHintTitle.text = title;
-            pickupHintTitle.color = Item.itemQualityColor[(int)itemQuality];
-            pickupHintCaption.text = Caption?? "Press ";
-            pickupHintCaption.color = captionColor ?? Color.white;
-            pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
-            if (!pickupHint.activeSelf) pickupHint.SetActive(true);
-        }
-    }
 
-    public void ShowPickupHint(string title, string Caption, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null, bool setToHidden = false)
+    /// <summary>
+    /// Show a hint for a pickup item, with a half black bg and white caption.
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="itemQuality"></param>
+    /// <param name="caption"></param>
+    public void ShowPickupHint(ItemPickup itemPickup, bool isUsingMouse, string caption = null)
     {
-        if(setToHidden && pickupHint.activeSelf)
+        pickupHintTitle.text = itemPickup.item.name;
+        pickupHintTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
+        if (isUsingMouse)
         {
-            pickupHint.SetActive(false);
+            pickupHintCaption.text = caption ?? "Click it to pick it up.";
+
         }
         else
         {
-            pickupHintTitle.text = title;
-            pickupHintTitle.color = titleColor ?? Color.white;
-            pickupHintCaption.text = Caption;
-            pickupHintCaption.color = captionColor ?? Color.white;
-            pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
-            if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+            pickupHintCaption.text = caption ?? "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to pick it up.";
+
         }
+        pickupHintCaption.color = Color.white;
+        pickupHintBg.color = new Color(0, 0, 0, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
     }
 
+    public void ShowPickupHint(Enemy enemy, Color? bgColor = null)
+    {
+
+        pickupHintTitle.text = enemy.name;
+        pickupHintTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
+        pickupHintCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
+        pickupHintCaption.color = Color.white;
+        pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+
+    }
+
+    public void ShowPickupHint(string title, string Caption = null, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null)
+    {
+
+        pickupHintTitle.text = title;
+        pickupHintTitle.color = titleColor ?? Color.white;
+        pickupHintCaption.text = Caption;
+        pickupHintCaption.color = captionColor ?? Color.white;
+        pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        
+    }
+
+    public void ShowInteractableFocusHint(ItemPickup itemPickup, string caption = null, Color? bgColor = null)
+    {
+        pickupHintTitle.text = itemPickup.item.name;
+        pickupHintTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
+        pickupHintCaption.text = caption;
+        pickupHintBg.color = bgColor ?? new Color(0, 0, .5f, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+    }
+
+    public void ShowInteractableFocusHint(Enemy enemy, Color? bgColor = null)
+    {
+        pickupHintTitle.text = enemy.name;
+        pickupHintTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
+        pickupHintCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
+        pickupHintBg.color = bgColor ?? new Color(.5f, 0, 0, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+    }
+
+    public void ShowInteractableFocusHint(string title, string Caption = null, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null)
+    {
+
+        pickupHintTitle.text = title;
+        pickupHintTitle.color = titleColor ?? Color.white;
+        pickupHintCaption.text = Caption;
+        pickupHintCaption.color = captionColor ?? Color.white;
+        pickupHintBg.color = bgColor ?? new Color(0, .5f, .5f, .5f);
+        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+
+    }
 }

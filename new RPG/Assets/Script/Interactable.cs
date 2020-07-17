@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        //Debug.Log("<color=green>Interacted with " + name + "</color>.");
+        
     }
 
     private void Update()
