@@ -67,9 +67,6 @@ public class PlayerStats : CharStats
                 EquipmentWeapon newWeapon = (EquipmentWeapon)newEquipment;
                 switch (newWeapon.weaponType)
                 {
-                    case WeaponType.Sword:
-                        atkSpeed.SetBaseValue(100);
-                        break;
                     case WeaponType.Knife:
                         atkSpeed.SetBaseValue(120);
                         break;

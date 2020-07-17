@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Greave of Protection
   discription: 
   icon: {fileID: 21300000, guid: d14bd347672c25f46a71c6306d6652cf, type: 3}
-  ItemQuality: 2
+  ItemQuality: 1
   levelLimit: 0
   pickable: 1
   tangible: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
   hitRate: 0
   evadeRate: 0
   critRate: 0
-  movementSpeedAdd: 100
+  movementSpeedAdd: 0
   movementSpeedMul: 0
   attackSpeedAdd: 0
   attackSpeedMul: 0

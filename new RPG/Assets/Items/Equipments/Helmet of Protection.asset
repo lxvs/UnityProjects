@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Helmet of Protection
   discription: 
   icon: {fileID: 21300000, guid: 0366a6790fd986145bdb15fe310ce346, type: 3}
-  ItemQuality: 2
+  ItemQuality: 1
   levelLimit: 0
   pickable: 1
   tangible: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   phyAtkMulSelf: 0
   phyDefMulSelf: 25
   phyAtkMul: 0
-  phyDefMul: 10
+  phyDefMul: 0
   phyDmgRdc: 0
   phyDmgRdcRate: 0
   hitRate: 0
