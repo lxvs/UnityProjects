@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Serialization;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -23,9 +24,13 @@ public class UIManager : MonoBehaviour
     public GameObject gameMenuUI;
     public GameObject inventoryParentUI;
     public GameObject hudUI;
-    public GameObject pickupHint;
-    public Text pickupHintTitle;
-    public Text pickupHintCaption;
+    public GameObject promptBar;
+    public Text promptTitle;
+    public Text promptCaption;
+    public GameObject hitPointBarGO;
+    RectTransform hitPointBar;
+    RectTransform promptBarRectTransform;
+    float promptBarWidth;
 
     public Text tUsername;
     public Text tHp;
@@ -45,10 +50,15 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        pickupHintBg = pickupHint.GetComponent<Image>();
+        pickupHintBg = promptBar.GetComponent<Image>();
         gameMenuUI.SetActive(false);
         inventoryParentUI.SetActive(false);
-        pickupHint.SetActive(false);
+        promptBar.SetActive(false);
+        hitPointBar = hitPointBarGO.GetComponent<RectTransform>();
+        promptBarRectTransform = promptBar.GetComponent<RectTransform>();
+        promptBarWidth = promptBarRectTransform.rect.width;
+        hitPointBarGO.SetActive(false);
+        
         UpdateStats();
     }
 
@@ -97,14 +107,14 @@ public class UIManager : MonoBehaviour
         tSpeedMov.text = "MOV Speed: " + playerStats.movSpeed.GetValue();
     }
 
-    public void ExitGame()
+    public void ExitGame() 
     {
         Application.Quit();
     }
 
     public void HidePickupHint()
     {
-        pickupHint.SetActive(false);
+        promptBar.SetActive(false);
     }
 
 
@@ -116,74 +126,80 @@ public class UIManager : MonoBehaviour
     /// <param name="caption"></param>
     public void ShowPickupHint(ItemPickup itemPickup, bool isUsingMouse, string caption = null)
     {
-        pickupHintTitle.text = itemPickup.item.name;
-        pickupHintTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
+        if (hitPointBarGO.activeSelf) hitPointBarGO.SetActive(false);
+        promptTitle.text = itemPickup.item.name;
+        promptTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
         if (isUsingMouse)
         {
-            pickupHintCaption.text = caption ?? "Click it to pick it up.";
+            promptCaption.text = caption ?? "Click it to pick it up.";
 
         }
         else
         {
-            pickupHintCaption.text = caption ?? "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to pick it up.";
+            promptCaption.text = caption ?? "Press " + (GameSettingsManager.instance.isGamePadConnected ? "X button" : "F") + " to pick it up.";
 
         }
-        pickupHintCaption.color = Color.white;
+        promptCaption.color = Color.white;
         pickupHintBg.color = new Color(0, 0, 0, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
     }
 
     public void ShowPickupHint(Enemy enemy, Color? bgColor = null)
     {
-
-        pickupHintTitle.text = enemy.name;
-        pickupHintTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
-        pickupHintCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
-        pickupHintCaption.color = Color.white;
+        if (hitPointBarGO.activeSelf) hitPointBarGO.SetActive(false);
+        promptTitle.text = enemy.name;
+        promptTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
+        promptCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
+        promptCaption.color = Color.white;
         pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
 
     }
 
     public void ShowPickupHint(string title, string Caption = null, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null)
     {
+        if (hitPointBarGO.activeSelf) hitPointBarGO.SetActive(false);
 
-        pickupHintTitle.text = title;
-        pickupHintTitle.color = titleColor ?? Color.white;
-        pickupHintCaption.text = Caption;
-        pickupHintCaption.color = captionColor ?? Color.white;
+        promptTitle.text = title;
+        promptTitle.color = titleColor ?? Color.white;
+        promptCaption.text = Caption;
+        promptCaption.color = captionColor ?? Color.white;
         pickupHintBg.color = bgColor ?? new Color(0, 0, 0, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
-        
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
+
     }
 
     public void ShowInteractableFocusHint(ItemPickup itemPickup, string caption = null, Color? bgColor = null)
     {
-        pickupHintTitle.text = itemPickup.item.name;
-        pickupHintTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
-        pickupHintCaption.text = caption;
-        pickupHintBg.color = bgColor ?? new Color(0, 0, .5f, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        if (hitPointBarGO.activeSelf) hitPointBarGO.SetActive(false);
+        promptTitle.text = itemPickup.item.name;
+        promptTitle.color = Item.itemQualityColor[(int)itemPickup.item.ItemQuality];
+        promptCaption.text = caption;
+        pickupHintBg.color = bgColor ?? new Color(0, 0, .5f, .25f);
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
     }
 
     public void ShowInteractableFocusHint(Enemy enemy, Color? bgColor = null)
     {
-        pickupHintTitle.text = enemy.name;
-        pickupHintTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
-        pickupHintCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
-        pickupHintBg.color = bgColor ?? new Color(.5f, 0, 0, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        promptTitle.text = enemy.name;
+        promptTitle.color = Enemy.enemyQualityColor[(int)enemy.enemyQuality];
+        promptCaption.text = "Lv." + enemy.enemyStats.lvl + "  " + enemy.enemyStats.hp + "/" + enemy.enemyStats.hpm.GetValue();
+        pickupHintBg.color = bgColor ?? new Color(.5f, 0, 0, .25f);
+        hitPointBar.sizeDelta = new Vector2(promptBarWidth * enemy.enemyStats.hp / enemy.enemyStats.hpm.GetValue(), 0f);
+        if (!hitPointBarGO.activeSelf) hitPointBarGO.SetActive(true);
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
     }
 
     public void ShowInteractableFocusHint(string title, string Caption = null, Color? titleColor = null, Color? bgColor = null, Color? captionColor = null)
     {
+        if (hitPointBarGO.activeSelf) hitPointBarGO.SetActive(false);
 
-        pickupHintTitle.text = title;
-        pickupHintTitle.color = titleColor ?? Color.white;
-        pickupHintCaption.text = Caption;
-        pickupHintCaption.color = captionColor ?? Color.white;
-        pickupHintBg.color = bgColor ?? new Color(0, .5f, .5f, .5f);
-        if (!pickupHint.activeSelf) pickupHint.SetActive(true);
+        promptTitle.text = title;
+        promptTitle.color = titleColor ?? Color.white;
+        promptCaption.text = Caption;
+        promptCaption.color = captionColor ?? Color.white;
+        pickupHintBg.color = bgColor ?? new Color(0, .5f, .5f, .25f);
+        if (!promptBar.activeSelf) promptBar.SetActive(true);
 
     }
 }

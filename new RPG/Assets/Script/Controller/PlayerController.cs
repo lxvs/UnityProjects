@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             {
                 uiManager.ShowPickupHint(neariestPickup, isUsingMouse);
             }
-            else if (uiManager.pickupHint.activeSelf)
+            else if (uiManager.promptBar.activeSelf)
             {
                 uiManager.HidePickupHint();
             }
